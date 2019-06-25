@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Accounting;
@@ -26,6 +27,7 @@ final class TaxRate
         if ($percent < 0) {
             throw new \InvalidArgumentException('Tax Rate must be between 0 and 100');
         }
+
         return new self($this->taxRate - $percent);
     }
 }

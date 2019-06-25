@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\FilesystemIntegration\Output;
 
-use App\Accounting\Employee;
 use App\Accounting\PayCalculatorInterface;
 use Money\MoneyFormatter;
 

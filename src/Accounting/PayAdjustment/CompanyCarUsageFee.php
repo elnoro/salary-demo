@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Accounting\PayAdjustment;
@@ -13,7 +14,7 @@ final class CompanyCarUsageFee implements PayAdjustmentInterface
     public function adjust(Employee $employee): Money
     {
         if ($employee->usesCompanyCar()) {
-            return Money::USD(self::FEE*100)->negative();
+            return Money::USD(self::FEE * 100)->negative();
         }
 
         return Money::USD(0);

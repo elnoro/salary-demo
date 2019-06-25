@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Accounting;
@@ -22,7 +23,7 @@ final class Employee
     /** @var int */
     private $age;
 
-    public function __construct($name, Money $baseSalary, int $kids, bool $usesCompanyCar, int $age)
+    public function __construct(string $name, Money $baseSalary, int $kids, bool $usesCompanyCar, int $age)
     {
         $this->name = $name;
         $this->baseSalary = $baseSalary;
@@ -31,41 +32,26 @@ final class Employee
         $this->age = $age;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return Money
-     */
     public function getBaseSalary(): Money
     {
         return $this->baseSalary;
     }
 
-    /**
-     * @return int
-     */
     public function getKids(): int
     {
         return $this->kids;
     }
 
-    /**
-     * @return bool
-     */
     public function usesCompanyCar(): bool
     {
         return $this->usesCompanyCar;
     }
 
-    /**
-     * @return int
-     */
     public function getAge(): int
     {
         return $this->age;

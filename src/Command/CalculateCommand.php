@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Accounting\Employee;
 use App\FilesystemIntegration\Input\EmployeeReaderInterface;
 use App\FilesystemIntegration\Output\SalaryExporterInterface;
 use Symfony\Component\Console\Command\Command;
@@ -33,7 +34,6 @@ final class CalculateCommand extends Command
             ->setDescription('Calculates salaries from csv into output csv')
             ->addArgument('employees-file', InputArgument::REQUIRED, 'Input file')
             ->addArgument('salaries-file', InputArgument::REQUIRED, 'Output file');
-        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -42,7 +42,10 @@ final class CalculateCommand extends Command
         $employeesFile = $input->getArgument('employees-file');
         $salariesFile = $input->getArgument('salaries-file');
 
+        /** @psalm-suppress PossiblyInvalidArgument */
         $employees = $this->employeeReader->read($employeesFile);
+        /* @var Employee[] $employees */
+        /* @psalm-suppress PossiblyInvalidArgument */
         $this->salaryExporter->export($salariesFile, $employees);
 
         $io->success('Output');

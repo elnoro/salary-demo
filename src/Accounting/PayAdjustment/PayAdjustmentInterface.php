@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Accounting\PayAdjustment;
 
 use App\Accounting\Employee;
