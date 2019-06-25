@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Accounting\TaxCalculation;
+namespace App\Accounting\TaxCalculation\BaseRateProvider;
 
 use App\Accounting\Employee;
-use App\Accounting\PayAdjustment\Tax\BaseRateProviderInterface;
+use App\Accounting\TaxCalculation\BaseRateProviderInterface;
 use App\Accounting\TaxRate;
 
 final class HardcodedRateProvider implements BaseRateProviderInterface

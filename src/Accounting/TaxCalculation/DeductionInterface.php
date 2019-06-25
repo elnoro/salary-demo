@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Accounting\PayAdjustment\Tax;
+namespace App\Accounting\TaxCalculation;
 
 use App\Accounting\Employee;
 use App\Accounting\TaxRate;

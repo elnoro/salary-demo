@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Accounting;
 
-interface PaymentCalculatorInterface
+interface PayCalculatorInterface
 {
     public function calculate(Employee $employee): Payment;
 }

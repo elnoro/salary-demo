@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace App\Accounting;
 
 use App\Accounting\PayAdjustment\PayAdjustmentInterface;
-use App\Accounting\PayAdjustment\Tax\TaxCalculator;
+use App\Accounting\TaxCalculation\TaxCalculator;
 use Money\Money;
 
-final class SalaryCalculator implements PaymentCalculatorInterface
+final class SalaryCalculator implements PayCalculatorInterface
 {
     /** @var TaxCalculator */
     private $taxCalculator;
@@ -38,7 +38,7 @@ final class SalaryCalculator implements PaymentCalculatorInterface
     {
         $grossPay = $employee->getBaseSalary();
         foreach ($this->preTaxAdjustments as $preTaxAdjustment) {
-            $grossPay->add($preTaxAdjustment->adjust($employee));
+            $grossPay = $grossPay->add($preTaxAdjustment->adjust($employee));
         }
 
         return $grossPay;
@@ -48,7 +48,7 @@ final class SalaryCalculator implements PaymentCalculatorInterface
     {
         $netPay = $grossPay->subtract($tax);
         foreach ($this->postTaxAdjustments as $postTaxAdjustment) {
-            $netPay->add($postTaxAdjustment->adjust($employee));
+            $netPay = $netPay->add($postTaxAdjustment->adjust($employee));
         }
 
         return $netPay;

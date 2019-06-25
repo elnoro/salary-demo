@@ -26,6 +26,6 @@ final class TaxRate
         if ($percent < 0) {
             throw new \InvalidArgumentException('Tax Rate must be between 0 and 100');
         }
-        return new self($this->taxRate + $percent);
+        return new self($this->taxRate - $percent);
     }
 }
