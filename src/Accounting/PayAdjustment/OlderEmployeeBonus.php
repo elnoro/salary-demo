@@ -9,13 +9,21 @@ use Money\Money;
 
 final class OlderEmployeeBonus implements PayAdjustmentInterface
 {
-    private const AGE_LIMIT = 50;
-    private const BONUS = 0.07;
+    /** @var int */
+    private $ageLimit;
+    /** @var float */
+    private $bonus;
+
+    public function __construct(int $ageLimit, float $bonus)
+    {
+        $this->ageLimit = $ageLimit;
+        $this->bonus = $bonus;
+    }
 
     public function adjust(Employee $employee): Money
     {
-        if ($employee->getAge() > self::AGE_LIMIT) {
-            return $employee->getBaseSalary()->multiply(self::BONUS);
+        if ($employee->getAge() > $this->ageLimit) {
+            return $employee->getBaseSalary()->multiply($this->bonus);
         }
 
         return Money::USD(0);

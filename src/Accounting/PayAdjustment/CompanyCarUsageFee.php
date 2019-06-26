@@ -9,12 +9,26 @@ use Money\Money;
 
 final class CompanyCarUsageFee implements PayAdjustmentInterface
 {
-    private const FEE = 500;
+    /** @var Money */
+    private $fee;
+
+    public static function fromDollars(int $fee): self
+    {
+        return new self(Money::USD($fee * 100));
+    }
+
+    public function __construct(Money $fee)
+    {
+        $this->fee = $fee;
+        if ($this->fee->isNegative()) {
+            throw new \InvalidArgumentException('Fee must be positive');
+        }
+    }
 
     public function adjust(Employee $employee): Money
     {
         if ($employee->usesCompanyCar()) {
-            return Money::USD(self::FEE * 100)->negative();
+            return $this->fee->negative();
         }
 
         return Money::USD(0);

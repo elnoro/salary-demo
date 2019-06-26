@@ -24,25 +24,16 @@ final class Payment
         $this->tax = $tax;
     }
 
-    /**
-     * @return string
-     */
     public function getTo(): string
     {
         return $this->employee->getName();
     }
 
-    /**
-     * @return Money
-     */
     public function getNetPay(): Money
     {
         return $this->netPay;
     }
 
-    /**
-     * @return Money
-     */
     public function getTax(): Money
     {
         return $this->tax;
