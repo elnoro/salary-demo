@@ -30,7 +30,7 @@ final class ChildrenTaxDeductionTest extends TestCase
             ->withKids(self::MANY_KIDS)
             ->build();
 
-        $afterDeduction = $this->childrenTaxDeduction->deduct($employee, new TaxRate(self::BASE_RATE));
+        $afterDeduction = $this->childrenTaxDeduction->apply($employee, new TaxRate(self::BASE_RATE));
 
         $this->assertEquals(self::LOWER_RATE, $afterDeduction->getTaxRate());
     }
@@ -44,7 +44,7 @@ final class ChildrenTaxDeductionTest extends TestCase
             ->withKids(self::FEW_KIDS)
             ->build();
 
-        $afterDeduction = $this->childrenTaxDeduction->deduct($employee, new TaxRate(self::BASE_RATE));
+        $afterDeduction = $this->childrenTaxDeduction->apply($employee, new TaxRate(self::BASE_RATE));
 
         $this->assertEquals(self::BASE_RATE, $afterDeduction->getTaxRate());
     }

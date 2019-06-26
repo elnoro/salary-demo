@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Accounting;
 
 use App\Accounting\PayAdjustment\PayAdjustmentInterface;
-use App\Accounting\TaxCalculation\TaxCalculator;
+use App\Accounting\TaxCalculation\TaxCalculatorInterface;
 use Money\Money;
 
 final class SalaryCalculator implements PayCalculatorInterface
 {
-    /** @var TaxCalculator */
+    /** @var TaxCalculatorInterface */
     private $taxCalculator;
 
     /** @var PayAdjustmentInterface[] */
@@ -19,7 +19,7 @@ final class SalaryCalculator implements PayCalculatorInterface
     /** @var PayAdjustmentInterface[] */
     private $postTaxAdjustments;
 
-    public function __construct(TaxCalculator $taxCalculator, array $preTaxAdjustments, array $postTaxAdjustments)
+    public function __construct(TaxCalculatorInterface $taxCalculator, array $preTaxAdjustments, array $postTaxAdjustments)
     {
         $this->taxCalculator = $taxCalculator;
         $this->preTaxAdjustments = $preTaxAdjustments;

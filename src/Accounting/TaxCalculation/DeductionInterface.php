@@ -9,5 +9,5 @@ use App\Accounting\TaxRate;
 
 interface DeductionInterface
 {
-    public function deduct(Employee $employee, TaxRate $taxRate);
+    public function apply(Employee $employee, TaxRate $taxRate);
 }

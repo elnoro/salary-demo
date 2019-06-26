@@ -3,14 +3,14 @@
 use App\Accounting\Employee;
 use App\Accounting\TaxCalculation\BaseRateProviderInterface;
 use App\Accounting\TaxCalculation\DeductionInterface;
-use App\Accounting\TaxCalculation\TaxCalculator;
+use App\Accounting\TaxCalculation\DeductionCalculator;
 use App\Accounting\TaxRate;
 use App\Tests\DataBuilder\EmployeeBuilder;
 use Money\Money;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-final class TaxCalculatorTest extends TestCase
+final class DeductionCalculatorTest extends TestCase
 {
     private const EXPECTED_BASE_RATE = 100;
     private const EXPECTED_FIRST_DEDUCTION = 50;
@@ -25,7 +25,7 @@ final class TaxCalculatorTest extends TestCase
     /** @var Employee */
     private $employee;
 
-    /** @var TaxCalculator */
+    /** @var DeductionCalculator */
     private $taxCalculator;
 
     protected function setUp()
@@ -34,7 +34,7 @@ final class TaxCalculatorTest extends TestCase
         $this->firstDeduction = $this->createMock(DeductionInterface::class);
         $this->secondDeduction = $this->createMock(DeductionInterface::class);
 
-        $this->taxCalculator = new TaxCalculator($this->baseRateProvider, [$this->firstDeduction, $this->secondDeduction]);
+        $this->taxCalculator = new DeductionCalculator($this->baseRateProvider, [$this->firstDeduction, $this->secondDeduction]);
 
         $this->employee = EmployeeBuilder::anEmployee()->build();
     }
@@ -66,7 +66,7 @@ final class TaxCalculatorTest extends TestCase
     private function firstDeductionTransformsTaxRate(int $from, int $to): void
     {
         $this->firstDeduction
-            ->method('deduct')
+            ->method('apply')
             ->with($this->employee, new TaxRate($from))
             ->willReturn(new TaxRate($to));
     }
@@ -74,7 +74,7 @@ final class TaxCalculatorTest extends TestCase
     private function secondDeductionTransformsTaxRate(int $from, int $to): void
     {
         $this->secondDeduction
-            ->method('deduct')
+            ->method('apply')
             ->with($this->employee, new TaxRate($from))
             ->willReturn(new TaxRate($to));
     }

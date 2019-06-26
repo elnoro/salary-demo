@@ -8,7 +8,7 @@ use App\Accounting\Employee;
 use App\Accounting\TaxRate;
 use Money\Money;
 
-final class TaxCalculator
+final class DeductionCalculator implements TaxCalculatorInterface
 {
     /** @var BaseRateProviderInterface */
     private $baseRateProvider;
@@ -33,7 +33,7 @@ final class TaxCalculator
         $taxRate = $this->baseRateProvider->getTaxRateFor($employee);
 
         foreach ($this->deductions as $deduction) {
-            $taxRate = $deduction->deduct($employee, $taxRate);
+            $taxRate = $deduction->apply($employee, $taxRate);
         }
 
         return $taxRate;
